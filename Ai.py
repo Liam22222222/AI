@@ -12,7 +12,7 @@ current = 0
 c = 0.1
 next = ""
 target = ""
-with open('ai.txt','r') as file:
+with open('fantisy.txt','r') as file:
     sample = file.read()
 
 #functions
@@ -25,7 +25,7 @@ word_count = input("word count: ")
 word_count = int(word_count)
 
 c = input("creativity: ")
-c = int(float(c) * 100)
+c = int(c)
 
 text.append(input("starting word: "))
 
@@ -45,8 +45,7 @@ while i < word_count:
 
     for item in letters:
         current = letters.count(letters[n]) 
-        current += randint(-c,c) / 100
-        if current > score:
+        if current + (randint(-c,c)) > score:
             score = current
             next = letters[n]
         n += 1
@@ -61,6 +60,7 @@ text = text.replace("[","")
 text = text.replace("]","")
 text = text.replace(",","")
 text = text.replace("'","")
+text = text.replace("\n\n\n","")
 
 text = text.replace("@",'"')
 text = text.replace("^","'")
