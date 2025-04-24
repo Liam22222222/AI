@@ -60,7 +60,6 @@ text = text.replace("[","")
 text = text.replace("]","")
 text = text.replace(",","")
 text = text.replace("'","")
-text = text.replace("\n\n\n","")
 
 text = text.replace("@",'"')
 text = text.replace("^","'")
