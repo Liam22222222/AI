@@ -3,6 +3,20 @@
 from random import randint
 import sys
 import textwrap
+import nltk
+import re
+import string
+from nltk.stem import WordNetLemmatizer
+
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
+file_name = 'final.txt'
+with open(file_name, 'r', encoding="utf8") as f:
+    text_data = f.read().lower()
+    words = re.findall(r'\w+', text_data)
+
+vocab = set(words)
 
 
 text = []
