@@ -1,10 +1,15 @@
 
 #init
 from random import randint
+import sys
+import textwrap
+
 
 text = []
+word_list = []
 i = 0
 n = 0
+wrapper = textwrap.TextWrapper(width=100)
 word_count = 0
 letters = []
 score = 0
@@ -17,15 +22,13 @@ with open('fantisy.txt','r') as file:
 
 #functions
 
+
 #code
 sample = sample.split(" ")
 sample = list(sample)
 
 word_count = input("word count: ")
 word_count = int(word_count)
-
-c = input("creativity: ")
-c = int(c)
 
 text.append(input("starting word: "))
 
@@ -44,8 +47,9 @@ while i < word_count:
     n = 0
 
     for item in letters:
-        current = letters.count(letters[n]) 
-        if current + (randint(-c,c)) > score:
+        current = letters.count(letters[n])
+        current += score * (randint(1,10) / 10)
+        if current > score:
             score = current
             next = letters[n]
         n += 1
@@ -66,5 +70,8 @@ text = text.replace("^","'")
 
 text = (text+".")
 
-print(text)
+word_list = wrapper.wrap(text=text)
+
+for element in word_list:
+    print(element)
 
