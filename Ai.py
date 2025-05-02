@@ -26,6 +26,7 @@ n = 0
 wrapper = textwrap.TextWrapper(width=100)
 word_count = 0
 letters = []
+end = False
 score = 0
 current = 0
 c = 0.1
@@ -96,59 +97,79 @@ def get_best_correction(word, probs, vocab, max_suggestions=5):
 #code
 sample = sample.split(" ")
 sample = list(sample)
+print("\n type STOP to quit")
+print("\n")
+while not end:
 
-word_count = input("word count: ")
-word_count = int(word_count)
-
-text.append(input("starting word: "))
-
-while i < word_count:
-
-    target = text[i]
+    text = []
+    i = 0
     n = 0
     letters = []
-
-    for item in sample:
-        if sample[n] == target and n + 1 < len(sample):
-            letters.append(sample[n + 1])
-        n += 1
-
     score = 0
-    n = 0
+    current = 0
+    next = ""
+    target = ""
 
-    for item in letters:
-        current = letters.count(letters[n])
-        current += score * (randint(1,10) / 10)
-        if current > score:
-            score = current
-            next = letters[n]
-        n += 1
+    word_count = input("word count: ")
+    word_count = int(word_count)
 
-    user_input = str(next)
-    suggestions = get_best_correction(user_input, probabilities, vocab, max_suggestions=5)
-    next = []
-    for suggestion in suggestions:
-        next.append(suggestion[0])
-    next = list(next)
+    user_input = input("starting word: ")
+    if user_input == "STOP":
+        end = True
 
-    text.append(next[0])
+    text.append(user_input)
 
-    i += 1
+    while i < word_count:
 
-text = str(text)
+        target = text[i]
+        n = 0
+        letters = []
 
-text = text.replace("[","")
-text = text.replace("]","")
-text = text.replace(",","")
-text = text.replace("'","")
+        for item in sample:
+            if sample[n] == target and n + 1 < len(sample):
+                letters.append(sample[n + 1])
+            n += 1
 
-text = text.replace("@",'"')
-text = text.replace("^","'")
+        score = 0
+        n = 0
 
-text = (text+".")
+        for item in letters:
+            current = letters.count(letters[n])
+            current += score * (randint(1,10) / 10)
+            if current > score:
+                score = current
+                next = letters[n]
+            n += 1
 
-word_list = wrapper.wrap(text=text)
+        user_input = str(next)
+        suggestions = get_best_correction(user_input, probabilities, vocab, max_suggestions=5)
+        c = randint(0,2)
+        if len(suggestions) > c:
+            next = []
+            for suggestion in suggestions:
+                next.append(suggestion[0])
+            next = list(next)
+            text.append(next[c])
+        else:
+            text.append(next)
+        print(text)
+        i += 1
 
-for element in word_list:
-    print(element)
+    text = str(text)
 
+    text = text.replace("[","")
+    text = text.replace("]","")
+    text = text.replace(",","")
+    text = text.replace("'","")
+
+    text = text.replace("@",'"')
+    text = text.replace("^","'")
+
+    text = (text+".")
+
+    word_list = wrapper.wrap(text=text)
+
+    for element in word_list:
+        print(element)
+
+print("good bye")
