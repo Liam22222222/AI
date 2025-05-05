@@ -135,23 +135,22 @@ while not end:
 
         for item in letters:
             current = letters.count(letters[n])
-            current += score * (randint(1,10) / 10)
             if current > score:
                 score = current
                 next = letters[n]
             n += 1
 
-        user_input = str(next)
+        user_input = (str(next))
         suggestions = get_best_correction(user_input, probabilities, vocab, max_suggestions=5)
-        c = randint(0,2)
-        if len(suggestions) > c:
-            next = []
-            for suggestion in suggestions:
-                next.append(suggestion[0])
-            next = list(next)
-            text.append(next[c])
-        else:
-            text.append(next)
+        next = [next]
+        for suggestion in suggestions:
+            next.append(suggestion[0])
+            n = 0
+        text.append(next[n])
+        for c in sample:
+            if c == next[n]:
+                sample.remove(str(next[n]))
+            
         print(text)
         i += 1
 
