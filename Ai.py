@@ -95,12 +95,15 @@ def get_best_correction(word, probs, vocab, max_suggestions=5):
     return sorted([(w, probs.get(w, 0)) for w in candidates], key=lambda x: x[1], reverse=True)[:max_suggestions]
 
 #code
-sample = sample.split(" ")
-sample = list(sample)
 print("\n type STOP to quit")
 print("\n")
 while not end:
 
+    with open('fantisy.txt','r') as file:
+        sample = file.read()
+    
+    sample = sample.split(" ")
+    sample = list(sample)
     text = []
     i = 0
     n = 0
@@ -139,17 +142,17 @@ while not end:
                 score = current
                 next = letters[n]
             n += 1
-
         user_input = (str(next))
         suggestions = get_best_correction(user_input, probabilities, vocab, max_suggestions=5)
-        next = [next]
+        next = []
+        next.append(user_input)
         for suggestion in suggestions:
-            next.append(suggestion[0])
-            n = 0
-        text.append(next[n])
-        for c in sample:
-            if c == next[n]:
-                sample.remove(str(next[n]))
+            n = suggestion[0]
+            next.append(str(n))
+        n = 1
+        print(next)
+        text.append(str(next[n]))
+        sample.remove(str(next[n]))
             
         print(text)
         i += 1
